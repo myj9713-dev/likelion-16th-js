@@ -64,7 +64,7 @@ console.log('Java' + 'Script') // 'Java' + 'Script' = 'JavaScript'
 
 // 정수
 //console.log(92034)
-console.log(92_034)  //가독성을 위해 천단위 마다 언더스코어_ 사용 가능
+console.log(92_034)  //가독성을 위해 천단위마다 언더스코어_ 사용 가능
 
 // 실수 (정수 + 소수)
 console.log(823 + 0.73)
@@ -119,9 +119,11 @@ console.log(31 % 5) // 1
 
 // true 값
 console.log(true)
+console.log(3 == '3') // 비교 연산자 -> bullean
 
 // false 값
 console.log(false)
+console.log(3 === '3') // 비교 연산자 -> bullean
 
 
 // --------------------------------------------------------------------------
@@ -142,7 +144,7 @@ console.log(memoryStick) // undefined
 
 // null 값 - 의도적으로 비어있음
 // 예시:
-// * 선택된 인덱스
+// * 선택된 인덱스 (인덱스는 0부터 시작)
 let selextedIndex = null// 개발자가 의도를 가지고 값을 비운 경우를 나타냄
 console.log(selextedIndex)
 selextedIndex = 3 // 4번째 박스가 선택됨 (상태)
@@ -152,15 +154,35 @@ console.log(selextedIndex)
 
 // * 로그인 사용자
 let loginUser = null // 로그인된 사용자가 없다. (의도를 가지고 비움)
-// 로그인 시도
+console.log('로그인 사용자:', loginUser)
+// 로그인 시도 (HTML Form)
+// 로그인 성공
+loginUser = '유정'
+console.log('로그인 사용자:', loginUser)
+// 로그아웃
+loginUser = null //로그인 사용자가 없다. (상태 변경)
+console.log('로그인 사용자:', loginUser)
+
 
 // --------------------------------------------------------------------------
 // 심볼 (Symbol)
 // --------------------------------------------------------------------------
 
-// 심볼 생성 - 항상 고유한 값
+//문자열의 경우, 같은 키(key) 값인 경우 동일한 값이다.
+const productAIdString = 'abc', 
+      productBIdString = 'abc'
 
-// 설명이 있는 심볼
+// 심볼 생성 - 항상 고유한 값
+//심볼의 경우, 같은 키(key)값을 사용해도 각각 고유한 값이다.
+const productAISybol = Symbol('abc'), 
+      productBISybol = Symbol('abc')
+
+// 고유한 값인가? (조건: productAId와 productBId가 값이 달라야 한다.)
+// 비교 연산자 (두 값을 비교 -> 불리언 값 평가)
+// 두 값이 같다. true 불리언 평가(고유하지 않다.)
+console.log('문자열을 사용할 때 고유하지 않다?', productAIdString == productBIdString) // ture
+// 두 값이 다르다. false 불리언 평가(고유하다.)
+console.log('심볼을 사용할 때 고유하지 않다?', productAISybol == productBISybol) // false
 
 
 // --------------------------------------------------------------------------
@@ -168,44 +190,104 @@ let loginUser = null // 로그인된 사용자가 없다. (의도를 가지고 �
 // --------------------------------------------------------------------------
 
 // 일반 숫자의 한계
-// * Number.MAX_SAFE_INTEGER
-// * +1 한계 초과
-// * +2 정확하지 않음
+// * Number.MAX_SAFE_INTEGER (9007199254740991)
+// * +1 한계 초과 : 9007199254740992
+// * +2 정확하지 않음 : ⚠️ 9007199254740993
 
 // BigInt 생성 - 숫자 뒤에 n 붙이기
+const bigInteral = 1000n
+console.log(bigInteral)
 
-// BigInt() 사용
+// BigInt() 사용 : 숫자 값 -> 빅인트(큰 정수) 변환
+const bigInt = BigInt(1000) //1000n
+console.log(bigInt)
 
 // BigInt와 Number는 섞을 수 없음
 // ❌ 숫자와 빅인트를 더할 경우 에러!
+// console.log(1000 + 100n) //❌TypeError: Invalid mix of BigInt and other type in addition.
+
 // ✅ 빅인트끼리 더할 경우 가능
+console.log(BigInt(1000)/* 1000n */ + 100n)
 
 
 // --------------------------------------------------------------------------
 // 참조 타입 (Reference Types)
 // --------------------------------------------------------------------------
 
+// 함수 (기능, 작업 정의)
+function 커피_만들기(원두, 물, 얼음) {
+// 절차
+// 1. 원두 갈기
+console.log('원두 갈기')
+// 2. 물 끓이기
+console.log('물 끓이기')
+// 3. 커피 추출
+console.log('커피 추출')
+// 4. 커피 제조
+console.log('커피 제조')
+// 5. 완성된 커피 내보내기
+console.log('완성된 커피 내보내기')
+}
+
+// 기능 사용 (실행, 호출)
+console.log(커피_만들기('케냐', '뜨거운 물', true)) // 얼음이 있냐 -> ture, 없냐 -> false
+
 // 객체
+const 커피_메뉴 = {
+  이름: '아인슈페너',
+  가격: 6_700,
+  용량: 'Large',
+  핫음료: true,
+  재료: ['에스프레소', '물', '크림'],
+  만든이: '유정'
+}
+
+console.log(커피_메뉴)
 
 // 배열
+const 장바구니 = [
+  '우유',
+  '김',
+  '치즈',
+  '라면',
+  '빵',
+  '아이스크림'
+]
 
-// 함수
-
+console.log(장바구니)
 
 // --------------------------------------------------------------------------
 // typeof 연산자
+// * 데이터 유형(type of data)
+// * typeof 연산자는 데이터의 타입을 확인할 때 사용
+// * typeof 데이터(값) 또는 표현식 ->타입(유형)값 (문자열 제공)
+// * typeof '우리는' + '하나!' -> 'string' + '하나!' -> 'string하나!' (연산자 우선 순위:typeof 연산자가 더하기(+) 연산자보다 더 쎄서, + 연산보다 typeof가 먼저 실행)
 // --------------------------------------------------------------------------
 
-// 기본 타입
+// 기본 타입 (Primitive Types)
+console.group('기본 타입-----------')
 // * null
+console.log(typeof null) // ⚠️'object'
 // * undefined
+console.log(typeof undefined) // 'undefined'
 // * String
+console.log(typeof '데이터 타입을 문자 값으로 알려줌') // 'string'
 // * Number
+console.log(typeof 20260105) // 'number'
 // * Boolean
+console.log(typeof false) // 'boolean'
 // * BigInt
+console.log(typeof 900n) // 'bigint'
 // * Symbol
+console.log(typeof Symbol('yj')) // 'symbol'
+console.groupEnd()
 
 // 참조 타입
+console.group('객체 타입-----------') 
 // * Object
+console.log(typeof {}) // 'object'
 // * Array
+console.log(typeof []) // 'object'
 // * Function
+console.log(typeof function() {}) // 'function'
+console.groupEnd()
