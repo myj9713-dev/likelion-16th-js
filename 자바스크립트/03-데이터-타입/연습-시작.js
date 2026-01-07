@@ -2,16 +2,16 @@
 // 연습: 다음 코드의 출력 결과를 예측해 주석으로 작성하세요.
 // --------------------------------------------------------------------------
 
-console.log(typeof 'JavaScript')      // 예측 값 작성: 
-console.log(typeof 24)                // 예측 값 작성: 
-console.log(typeof true)              // 예측 값 작성: 
-console.log(typeof undefined)          // 예측 값 작성: 
-console.log(typeof null)              // 예측 값 작성:
-console.log(typeof Symbol('id'))      // 예측 값 작성: 
-console.log(typeof 123n)              // 예측 값 작성: 
-console.log(typeof [4, 7, 3])         // 예측 값 작성: 
-console.log(typeof { name: '우인' })   // 예측 값 작성: 
-console.log(typeof function() {})     // 예측 값 작성: 
+console.log(typeof 'JavaScript')      // 예측 값 작성: string
+console.log(typeof 24)                // 예측 값 작성: number
+console.log(typeof true)              // 예측 값 작성: boolean
+console.log(typeof undefined)          // 예측 값 작성: undefined
+console.log(typeof null)              // 예측 값 작성:null
+console.log(typeof Symbol('id'))      // 예측 값 작성: symbol
+console.log(typeof 123n)              // 예측 값 작성: bigint
+console.log(typeof [4, 7, 3])         // 예측 값 작성: array
+console.log(typeof { name: '우인' })   // 예측 값 작성: object
+console.log(typeof function() {})     // 예측 값 작성: funtion
 
 
 // --------------------------------------------------------------------------
@@ -19,6 +19,7 @@ console.log(typeof function() {})     // 예측 값 작성:
 // --------------------------------------------------------------------------
 
 // 당신의 이름을 저장하는 문자열 변수 my_name
+const my_name = '문유정' 
 
 // 당신의 나이를 저장하는 숫자 변수 my_age
 
