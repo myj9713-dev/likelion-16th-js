@@ -135,7 +135,7 @@ console.log(나의_함수('함수 표현식'))
 // 2. `return`을 만나면 함수는 그 즉시 종료되고 값을 반환합니다.
 // 3. 함수에 수식이나 다른 함수를 넣으면, 먼저 계산(평가)된 뒤에 결과값이 전달됩니다.
 
-
+// 노션 실습 문제
 // 함수(기능) 만들기
 // 1. 함수 선언
 function logger(logMessage) {
@@ -169,3 +169,161 @@ function rem2px(remValue) {
 
 console.log(rem2px(1.5))
 console.log(rem2px('1.5rem'))
+
+
+
+// --------------------------------------------------------------------------
+// 실습 풀이
+// --------------------------------------------------------------------------
+
+// --------------------------------------------------------------------------
+// 1. logger 이름의 함수를 선언하고, 
+//    logMessage 매개변수로 받아 콘솔 패널에 출력하도록 작성합니다.
+
+function logger(logMessage) {
+  console.log(logMessage)
+}
+
+console.log(logger('JavaScript 함수를 학습하셨군요!'))
+console.log(logger('함수는 암묵적으로 undefined를 반환해요.') === undefined)
+
+// --------------------------------------------------------------------------
+// 2. px 값을 rem 단위 값으로 변경하는 pxToRem 함수를 선언하고, 
+//    계산된 값을 반환하도록 작성하세요.
+
+function pxToRem(pxValue) {
+  return parseFloat(pxValue) / 16 + 'rem'
+}
+
+// 숫자 타입이 인자로 전달된 경우
+console.log(pxToRem(20))
+// 문자열 타입이 인자로 전달된 경우
+console.log(pxToRem('20'))
+// 문자열(단위 포함) 타입이 인자로 전달된 경우
+console.log(pxToRem('20px'))
+
+// --------------------------------------------------------------------------
+// 3. rem 단위 값을 px 값으로 변경하는 remToPx 함수를 선언하고, 
+//    계산된 값을 반환하도록 작성해보세요.
+
+function remToPx(remValue) {
+  return parseFloat(remValue) * 16 + 'px'
+}
+
+// 숫자 타입이 인자로 전달된 경우
+console.log(remToPx(6))
+// 문자열 타입이 인자로 전달된 경우
+console.log(remToPx('6'))
+// 문자열(단위 포함) 타입이 인자로 전달된 경우
+console.log(remToPx('6rem'))
+
+// --------------------------------------------------------------------------
+// 4. 피자 한 판 가격 계산 함수 만들기
+//    피자 한 판이 얼마인지 알고 있고, 몇 판을 살 건지도 알 때, 총 금액을 계산하는 함수
+
+function calculatePizzaPrice(price, quantity) {
+  return parseFloat(price) * parseFloat(quantity) + '원'
+}
+
+// 숫자 타입이 인자로 전달된 경우
+console.log(calculatePizzaPrice(30000, 2))
+// 문자열 타입이 인자로 전달된 경우
+console.log(calculatePizzaPrice('30000', '2'))
+// 문자열(단위 포함) 타입이 인자로 전달된 경우
+console.log(calculatePizzaPrice('30000원', '2개'))
+
+// --------------------------------------------------------------------------
+// 5. 주차 요금 계산 함수 만들기
+//    주차장에 몇 시간 있었는지를 입력하면, 1시간에 1,000원씩 계산하는 함수
+
+function calculateParkingFee(hours) {
+  return parseInt(hours, 10) * 1000 + '원'
+}
+
+// 숫자 타입이 인자로 전달된 경우
+console.log(calculateParkingFee(3))
+// 문자열 타입이 인자로 전달된 경우
+console.log(calculateParkingFee('3'))
+// 문자열(단위 포함) 타입이 인자로 전달된 경우
+console.log(calculateParkingFee('3시간'))
+
+// --------------------------------------------------------------------------
+// 6. 짝수인지 확인하는 함수 만들기
+//    어떤 숫자가 짝수인지 아닌지를 확인하는 함수. 짝수면 true, 홀수면 false
+
+function isEven(number) {
+  return Number(number) % 2 === 0
+}
+
+// 숫자 타입이 인자로 전달된 경우
+console.log(isEven(3)) // 짝수
+// 문자열 타입이 인자로 전달된 경우
+console.log(isEven('3')) // 짝수
+
+// 숫자 타입이 인자로 전달된 경우
+console.log(isEven(10)) // 홀수
+// 문자열 타입이 인자로 전달된 경우
+console.log(isEven('10')) // 홀수
+
+// --------------------------------------------------------------------------
+// 7. 생일 축하 메시지 출력 함수 만들기
+//    이름만 알려주면 자동으로 축하 메시지를 만들어주는 자동 응답기 같은 함수
+
+function birthdayMessage(name) {
+  return '생일 축하해요! ' + name + ' 🥳'
+}
+
+console.log(birthdayMessage('지훈'))
+console.log(birthdayMessage('수진'))
+
+// --------------------------------------------------------------------------
+// 8. 올해 남은 날짜 계산 함수 만들기
+//    오늘이 120일째라면, 1년(365일)에서 얼마나 남았는지 알려주는 함수
+
+function daysLeft(passedDays) {
+  return 365 - parseInt(passedDays, 10) + '일'
+}
+
+// 숫자 타입이 인자로 전달된 경우
+console.log(daysLeft(120))
+// 문자열 타입이 인자로 전달된 경우
+console.log(daysLeft('120'))
+// 문자열(단위 포함) 타입이 인자로 전달된 경우
+console.log(daysLeft('120일'))
+
+// --------------------------------------------------------------------------
+// 9. 세금 포함 가격 계산 함수 만들기
+//    상품 가격에 부가세를 붙여서 최종 금액을 계산하는 함수
+
+function priceWithTax(price, tax) {
+  return parseFloat(price) * (1 + parseFloat(tax)) + '원'
+}
+
+// 숫자 타입이 인자로 전달된 경우
+console.log(priceWithTax(92000, 0.03))
+// 문자열 타입이 인자로 전달된 경우
+console.log(priceWithTax('92000', '0.03'))
+// 문자열(단위 포함) 타입이 인자로 전달된 경우
+console.log(priceWithTax('92000원', '0.03%'))
+
+// --------------------------------------------------------------------------
+// 10. 나이가 성인인지 판별하는 함수 만들기
+//     놀이공원 입장 시, 성인(19+) 구역에 들어갈 수 있는 나이인지 확인해주는 함수
+
+function isAdult(age) {
+  return parseInt(age) >= 19
+}
+
+// 숫자 타입이 인자로 전달된 경우
+console.log(isAdult(9)) // 성인 아님
+// 문자열 타입이 인자로 전달된 경우
+console.log(isAdult('9')) // 성인 아님
+// 문자열(단위 포함) 타입이 인자로 전달된 경우
+console.log(isAdult('9살')) // 성인 아님
+
+// 숫자 타입이 인자로 전달된 경우
+console.log(isAdult(21)) // 성인
+// 문자열 타입이 인자로 전달된 경우
+console.log(isAdult('21')) // 성인
+// 문자열(단위 포함) 타입이 인자로 전달된 경우
+console.log(isAdult('21살')) // 성인
