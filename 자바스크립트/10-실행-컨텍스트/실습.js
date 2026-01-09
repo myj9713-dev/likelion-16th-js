@@ -15,26 +15,19 @@
 // HTML Parser
 // .html -> text file
 
-const convertUsdToKrw = function (usd, krw) {
-  // 1. 데이터 정제
-  // parseFloat는 '120.50달러'에서 앞부분의 숫자 '120.50'만 골라내 줍니다.
-  const cleanUsd = parseFloat(usd)
-  const cleanKrw = parseFloat(krw)
+// 노션 실습 문제
+const discountRate = 0.1 // 10% 할인율
 
-  // 2. 계산
-  const result = cleanUsd * cleanKrw
-
-  // 3. 데이터 가공
-  // parseInt는 소수점 이하를 버리고 정수만 남겨줍니다.
-  const finalResult = parseInt(result)
-
-  // 4. 최종 결과 반환
-  return finalResult + '원'
+function calculateTotal(price) {
+  const total = price * (1 - discountRate)
+  console.log("최종 가격: " + total)
 }
 
-console.log(convertUsdToKrw('120.50달러', '1480원'))
-console.log( convertUsdToKrw('120.50', '1480')) 
-console.log( convertUsdToKrw('120.50달러', '1480원'))
+calculateTotal(10000)
+
+// 1. 전역 컨텍스트의 메모리 생성 단계에서 `discountRate`의 상태는 무엇일까요? 초기화하지 않음 (Uninitialized)-TDZ 단계
+// 2. 만약 `const discountRate = 0.1` 코드 윗줄에서 
+// `console.log(discountRate)`를 실행하면 어떤 일이 벌어질까요? ReferenceError - TDZ단계라서
 
 // --------------------------------------------------------------------------
 // 실습: 실행 컨텍스트 (Execution Context)
@@ -52,10 +45,14 @@ console.log( convertUsdToKrw('120.50달러', '1480원'))
 
 // 전역 변수 선언
 // restaurantName 변수에 '이탈리안 키친' 할당
+const restaurantName = '이탈리안 키친'
 // isOpen 변수에 true 할당
-
+const isOpen = true /* 이탈이란 키친이 오픈 상태 */
 
 // 전역 변수 출력
+console.log('restaurantName', restaurantName)
+console.log('isOpen', isOpen)
+
 
 
 // 설명:
@@ -74,12 +71,15 @@ console.log( convertUsdToKrw('120.50달러', '1480원'))
 // makePasta 함수 선언
 // 매개변수: pastaType
 // 기능: '[pastaType] 파스타를 만들고 있습니다.' 출력
-
+const makePasta = function (pastaType) {
+  return pastaType + '파스타를 만들고 있습니다.'
+}
 
 // makePasta 함수 호출 ('까르보나라' 전달)
-
+console.log(makePasta('까르보나라'))
 
 // makePasta 함수 호출 ('알리오 올리오' 전달)
+console.log(makePasta('알리오 올리오'))
 
 
 // 설명:
@@ -105,21 +105,25 @@ console.log( convertUsdToKrw('120.50달러', '1480원'))
 // - finalPrice : <Uninitialized> (TDZ 진입)
 
 // menuPrice 변수에 50000 할당
-
+let menuPrice = 50_000
 
 // discount 변수에 0.1 할당
-
+let discount = 0.1
 
 // calculatePrice 함수 선언
 // 매개변수: price, discountRate
 // 기능: price에서 할인을 적용한 금액을 계산하여 반환
 // 지역 변수 discountedPrice 사용
-
+function calculatePrice(price, discountRate) {
+  return price - (price * discountRate)
+}
 
 // finalPrice 변수에 calculatePrice 함수 호출 결과 할당 (menuPrice, discount 전달)
-
+const finalPrice = calculatePrice(menuPrice, discount)
 
 // finalPrice 출력
+console.log(finalPrice)
+
 
 
 // 설명:
@@ -140,10 +144,13 @@ console.log( convertUsdToKrw('120.50달러', '1480원'))
 // - discount = 0.1 (TDZ 해제)
 // - calculatePrice(50000, 0.1) 호출 → 함수 컨텍스트 생성
 
+
 // [함수 컨텍스트 - 메모리 생성]
 // - price : 50000 (매개변수는 바로 초기화)
 // - discountRate : 0.1 (매개변수는 바로 초기화)
 // - discountedPrice : <Uninitialized> (TDZ 진입)
+
+
 
 // [함수 컨텍스트 - 코드 실행]
 // - discountedPrice = 50000 - (50000 * 0.1) = 45000 (TDZ 해제)
@@ -160,12 +167,15 @@ console.log( convertUsdToKrw('120.50달러', '1480원'))
 
 // 함수 선언은 호이스팅되어 선언 전에 호출 가능
 // greet 함수 호출 ('손님' 전달)
+console.log('손님')
 
 
 // greet 함수 선언
 // 매개변수: name
 // 기능: '어서오세요, [name]님!' 반환
-
+function greet(name) {
+  return '어서오세요, ' + name + '님!'
+}
 
 // 설명:
 // 함수 선언은 메모리 생성 단계에서 전체 코드가 저장되므로
@@ -173,6 +183,7 @@ console.log( convertUsdToKrw('120.50달러', '1480원'))
 
 // 출력 결과:
 // '어서오세요, 손님님!'
+console.log(greet('손님'))
 
 
 // --------------------------------------------------------------------------
@@ -183,9 +194,10 @@ console.log( convertUsdToKrw('120.50달러', '1480원'))
 // console.log(dishName) // ReferenceError: Cannot access 'dishName' before initialization
 
 // dishName 변수에 '라자냐' 할당
-
+const dishName = '라자냐'
 
 // dishName 출력
+console.log(dishName)
 
 
 // 설명:
@@ -202,7 +214,7 @@ console.log( convertUsdToKrw('120.50달러', '1480원'))
 
 // 전역 변수 선언
 // chefName 변수에 '김셰프' 할당
-
+const chefName = '김셰프'
 
 // cookDish 함수 선언
 // 매개변수: dish
@@ -211,9 +223,30 @@ console.log( convertUsdToKrw('120.50달러', '1480원'))
 //   - serveDish 함수 선언 (내부 함수)
 //     - 기능: '[chefName]님이 [dish]를 [cookingTime]분만에 완성했습니다!' 출력
 //   - serveDish 함수 호출
+function cookDish(dish) {
+  const cookingTime = 30
 
+  function serveDish() {
+    // return '[chefName]님이 [dish]를 [cookingTime]분만에 완성했습니다!'
+    let message = chefName
+        message += '님이 '
+        message += dish
+        message += '를 '
+        message += cookingTime
+        message += '분만에 완성했습니다!'
+    
+    return message
+  }
+
+  console.log(serveDish())
+
+  // 암묵적 반환
+  // return undefined
+}
 
 // cookDish 함수 호출 ('스파게티' 전달)
+console.log(cookDish('스파게티'))
+console.log(chefName)
 
 
 // 설명:
@@ -230,22 +263,25 @@ console.log( convertUsdToKrw('120.50달러', '1480원'))
 // --------------------------------------------------------------------------
 
 // x 변수에 100 할당
-
+const x = 100
 
 // y 변수에 50 할당
-
+const y = 50
 
 // getSum 함수 선언
 // 매개변수: n1, n2
 // 기능:
 //   - 지역 변수 sum에 n1 + n2 할당
 //   - sum 반환
-
+function getSum(n1, n2) {
+  return n1 + n2
+}
 
 // result 변수에 getSum 함수 호출 결과 할당 (x, y 전달)
-
+const result = getSum(x, y)
 
 // result 출력
+console.log(result)
 
 
 // 설명:
