@@ -132,4 +132,8 @@ console.log('id2:', id2, 'id2의 타입:', typeof id2)
 console.log('id1.description:', id1.description)
 console.log('id2.description:', id2.description)
 // 질문: 같은 'id'로 만들었는데 id1과 id2는 같을까요, 다를까요?
-// 답: 
+// 답: 다름. 심볼은 고유의 값을 할당하기때문에 이름이 같아도 컴퓨터는 둘을 다르게 인식함.
+// 강사님 정답
+// 다릅니다! Symbol은 매번 새롭고 고유한 값을 만듭니다.
+// 같은 Symbol('id')을 사용해도 id1과 id2는 완전히 다른 Symbol입니다.
+// 마치 쌍둥이처럼 똑같이 생겼어도 다른 사람인 것과 비슷합니다.

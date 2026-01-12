@@ -13,16 +13,17 @@
 
 // [작성 공간]
 let myVariable
+
 console.log(myVariable)
 console.log(typeof myVariable)
 
-let book = {
+const book = {
   title: '자바스크립트 입문'
 }
 
 console.log(book.title)
-console.log(typeof book.title)
 console.log(book.author)
+
 
 // --------------------------------------------------------------------------
 // 연습 문제: Null 사용하기
@@ -41,9 +42,21 @@ console.log(book.author)
 // 6. product 객체 출력
 
 // [작성 공간]
-let selectedItem
+let selectedItem = null
 
-let product
+console.log(selectedItem)
+
+selectedItem = '노트북'
+
+console.log(selectedItem)
+
+const product = {
+  name: '노트북',
+  price: 1_500_000,
+  discount: null,
+}
+
+console.log(product)
 
 
 // --------------------------------------------------------------------------
@@ -61,4 +74,10 @@ let product
 
 // [작성 공간]
 let value1
-let value2
+let value2 = null
+
+console.log(typeof value1)
+console.log(typeof value2)
+
+console.log(value1 == value2)
+console.log(value1 === value2)

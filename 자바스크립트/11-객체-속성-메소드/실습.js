@@ -406,8 +406,14 @@ console.log(greet(' 야무와 함께!'))
 // name 속성: '김철수'
 // age 속성: 25
 // introduce 메서드: '안녕하세요, 저는 [name]이고 [age]살입니다.' 출력
+const person = {
+  name: '김철수',
+  age: 25,
 
+  return '안녕하세요, 저는 ' + name + '이고 ' + age + '살입니다.'
+}
 
+console.log(person)
 // person 객체 출력
 
 
