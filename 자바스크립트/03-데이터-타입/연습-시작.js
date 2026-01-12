@@ -22,18 +22,25 @@ console.log(typeof function() {})     // 예측 값 작성: funtion
 const my_name = '문유정' 
 
 // 당신의 나이를 저장하는 숫자 변수 my_age
+let my_age = 30
 
 // 학생인지 여부를 저장하는 불리언 변수 is_student
+let is_student = true
 
 // 아파트 호수가 없음을 나타내는 null 변수 apt_number
+let apt_number = null
 
 // 아직 값이 정해지지 않은 변수 future_job
+let future_job = undefined
 
 // 좋아하는 과일 3개를 담은 배열 favorite_fruit
+let favorite_fruit = ['딸기', '복숭아', '망고스틴']
 
 // 당신의 정보를 담은 객체 my_info (이름, 나이 포함)
+let my_info = {name: '문유정', age:'30'}
 
 // "안녕하세요"를 출력하는 함수 sayHello
+const sayHello = function () {console.log('안녕하세요')}
 
 // 각 변수의 타입을 확인해보세요.
 console.log('my_name의 타입:', typeof my_name)
@@ -54,7 +61,8 @@ console.log('sayHello의 타입:', typeof sayHello)
 let user = null
 console.log('user의 타입:', typeof user)
 // 질문: null의 타입이 'object'인 이유는 무엇일까요?
-// 답: 
+// 답: 자바스크립트 초기 null 버그
+// null은 타입 태그가 000(객체)로 되어 있어서 typeof가 'object'로 반환됨
 
 
 // 문자 vs 숫자
@@ -64,7 +72,7 @@ let score2 = 100
 console.log('score1 =', score1, 'score1의 타입:', typeof score1)
 console.log('score2 =', score2, 'score2의 타입:', typeof score2)
 // 질문: 두 변수의 값은 같아 보이지만 타입이 다릅니다. 왜 그럴까요?
-// 답:
+// 답: score1은 따옴표로 감싸져 있어서 컴퓨터가 문자열로 인식하고, score2는 따옴표 없이 숫자만 있어서 컴퓨터가 숫자로 인식
 
 
 // undefined vs null
@@ -74,7 +82,7 @@ let user_age = null
 console.log('user_name의 값 =', user_name, 'user_name의 타입:', typeof user_name)
 console.log('user_age의 값 =', user_age, 'user_age의 타입:', typeof user_age)
 // 질문: undefined와 null의 차이는 무엇일까요?
-// 답:
+// 답: null은 개발자가 직접 입력한 의도적인 비어있는 값이고, undefined는 컴퓨터가 지정하는 아직 값이 주어지지 않은 것
 
 
 // 배열과 객체의 타입
@@ -86,9 +94,9 @@ console.log('numbers의 타입:', typeof numbers)
 console.log('person의 타입:', typeof person)
 console.log('sayHi의 타입:', typeof sayHi)
 // 질문: 배열, 객체, 함수의 typeof 결과를 정리해보세요.
-// 배열: 
-// 객체: 
-// 함수: 
+// 배열: object
+// 객체: object
+// 함수: function
 
 
 // 타입 변환 실험
@@ -98,7 +106,9 @@ const num2 = '10'
 console.log('num1 + 5 =', num1 + 5, 'num1의 타입:', typeof num1)
 console.log('num2 + 5 =', num2 + 5, 'num2의 타입:', typeof num2)
 // 질문: 결과가 다른 이유는 무엇인가요?
-// 답:
+// 답: num1은 숫자이므로 10 + 5 = 15 (수학 계산)
+//     num2는 문자열이므로 '10' + 5 = '105' (문자 연결)
+//     문자열에 숫자를 더하면 숫자가 문자로 바뀌어서 붙습니다.
 
 
 // BigInt vs Number
@@ -108,7 +118,9 @@ const normal_number = 100
 console.log('big_number:', big_number, 'big_number의 타입:', typeof big_number)
 console.log('normal_number:', normal_number, 'normal_number의 타입:', typeof normal_number)
 // 질문: BigInt 뒤에 'n'이 붙는 이유는 무엇일까요?
-// 답:
+// 답: 'n'은 "이 숫자는 BigInt 타입이다."라고 표시하는 기호입니다.
+//     일반 Number는 매우 큰 숫자를 정확하게 표현할 수 없어서,
+//     아주 큰 숫자를 다룰 때는 BigInt를 사용하고 뒤에 n을 붙입니다.
 
 
 // Symbol의 고유성
