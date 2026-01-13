@@ -11,8 +11,7 @@
 // 5. num2 변수 출력
 
 // [작성 공간]
-let num1 = 100
-let num2 = num1
+let num1 = 100, num2 = num1
 
 num1 = 200
 
@@ -33,12 +32,17 @@ console.log(num2)
 // 5. car2 객체 출력
 
 // [작성 공간]
-let car1 = {brand: 'Tesla', model: 'Model 3'}
-let car2 = car1
+const car1 = {
+  brand: 'Tesla',
+  model: 'Model 3'
+}
+
+const car2 = car1
 car2.model = 'Model S'
 
 console.log(car1)
 console.log(car2)
+
 
 // --------------------------------------------------------------------------
 // 연습 문제: 객체 비교하기
@@ -53,9 +57,9 @@ console.log(car2)
 // 5. obj1과 obj3를 === 연산자로 비교한 결과 출력
 
 // [작성 공간]
-let obj1 = { value: 10 }
-let obj2 = { value: 10 }
-let obj3 = obj1
+const obj1 = { value: 10 }
+const obj2 = { value: 10 }
+const obj3 = obj1
 
 console.log(obj1 === obj2)
 console.log(obj1 === obj3)
