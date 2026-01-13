@@ -496,9 +496,9 @@ let isLoggedIn = false
 let username = null
 
 if (isLoggedIn === true && username !== null) {
-  console.log(`${username}님, 환영합니다!`);
+  console.log(`${username}님, 환영합니다!`)
 } else {
-  console.log('로그인이 필요합니다.');
+  console.log('로그인이 필요합니다.')
 }
 
 // if 문 작성
