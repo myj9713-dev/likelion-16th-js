@@ -10,11 +10,22 @@
 // 1. 클래스 이름 추가 (add)
 // --------------------------------------------------------------------------
 
-// [연습] 'text-primary' 클래스를 추가하세요.
+// .prose 요소 찾기
+const prose = document.querySelector('.prose')
+console.log(prose) // <main class="prose"> → HTMLElement
 
+// prose 요소(객체) 안에서 h1 요소(객체) 찾기
+const proseHeading = prose.querySelector('h1')
+console.dir(proseHeading) // <h1> → HTMLHeadingElement
+
+// element.style     // CSSStyleDeclaration { item, length, ... }
+// element.classList // DOMTokenList { add, remove, replace, contains, toggle }
+
+// [연습] 'text-primary' 클래스를 추가하세요.
+// proseHeading.classList.add('text-primary')
 
 // [연습] 'text-primary'와 'font-bold' 클래스를 동시에 추가하세요.
-
+proseHeading.classList.add('text-primary', 'font-bold')
 
 // 설명:
 // classList.add()는 기존 클래스를 유지하면서 새로운 클래스를 덧입힙니다.
@@ -25,10 +36,11 @@
 // --------------------------------------------------------------------------
 
 // [연습] 위에서 추가했던 'text-primary' 클래스를 제거하세요.
-
+// console.log(proseHeading.classList) // DOMTokenList
+// proseHeading.classList.remove('text-primary')
 
 // [연습] 'text-primary'와 'font-bold' 클래스를 한 번에 제거하세요.
-
+proseHeading.classList.remove('text-primary', 'font-bold')
 
 // 설명:
 // remove() 메서드는 해당 클래스가 존재할 때만 삭제하며, 없어도 에러가 발생하지 않습니다.
@@ -38,11 +50,28 @@
 // 3. 클래스 이름 교체 (replace)
 // --------------------------------------------------------------------------
 
+// proseHeading 참조 객체 (<h1> → HTMLHeadingElement)
+// 클래스 이름 속성 값을 교체 (element.classList.replace())
+// 1. 제거 후
+// proseHeading.classList.remove('color-primary')
+// 2. 추가
+// proseHeading.classList.add('font-bold')
+// "제거 후 추가" 보다 "교체"를 하면 한 번에 모두 수행 
+proseHeading.classList.replace('color-silver', 'font-bold')
+
 // 실습 HTML 예시: <p class="message is-danger">오류 발생</p>
 
-
 // [연습] 'is-danger' 클래스를 'is-success' 클래스로 교체하세요.
-
+const messageElement = prose.querySelector('.message')
+// messageElement.classList.remove('is-danger')
+// messageElement.classList.add('is-success')
+const replacement = messageElement.classList.replace('is-danger', 'is-success')
+console.log('replacement:', replacement)
+if (replacement) {
+  console.log('교체 성공! ✅')
+} else {
+  console.warn('교체 실패! ⚠️')
+}
 
 // 설명:
 // remove()와 add()를 각각 실행하는 것보다 훨씬 간결하고 안전하게 스타일을 전환합니다.
