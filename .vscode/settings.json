@@ -1,4 +1,5 @@
 {
   "window.zoomLevel": 0.2,
-  "editor.glyphMargin": true
+  "editor.glyphMargin": true,
+  "editor.suggest.showStatusBar": true
 }

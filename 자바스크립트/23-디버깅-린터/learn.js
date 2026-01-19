@@ -34,6 +34,63 @@
 // --------------------------------------------------------------------------
 
 
+// 디버깅 훈련
+// 실습 1
+const button = document.querySelector('.button') // 클래스는 앞에 (.) 붙이기
+
+button.addEventListener('click', () => { // e 함수 선언됐는데 사용을 안해서 에러, 지우던가, clg('버튼 클릭!', e)에 사용하던가
+  console.log('버튼 클릭!')
+})
+
+
+// 실습 2
+const saveButton = document.querySelector('#save-button') // html랑 참조하는 이름 동일해야함
+
+saveButton.addEventListener('click', () => {
+  alert('저장되었습니다!')
+})
+
+
+// 실습 3
+const alarmButton = document.querySelector('.alarm-button')
+
+alarmButton.addEventListener('click', handleRing /* callback 함수 설정 (⚠️여기서 실행하는 것이 아님! -> handleRing() ❌) */)
+
+function handleRing() {
+  window.alert('알림!')
+  // 암묵적 undefined 반환
+  // addEventListener에 undefined가 설정되도 오류가 출력되지 않음
+}
+
+
+// 실습 4
+const submitButton = document.querySelector('.submit-button') // html랑 참조하는 이름 동일해야함
+
+submitButton.addEventListener('click', () => {
+  console.log('제출 완료!')
+})
+
+
+// 실습 5
+const closeButton = document.querySelector('.close-btn')
+
+closeButton.addEventListener('click', () => { // addEventListner에서 e빠짐..오타로 타입오류 함수 아니라고 나옴
+  console.log('닫기 버튼 클릭!')
+})
+
+// 실습 6
+const cart = document.querySelector('[data-id="cart"]')
+const price = cart.querySelector('[data-id="price"]').textContent
+const quantity = cart.querySelector('[data-id="quantity"]').textContent
+const calcButton = cart.querySelector('[data-id="calc-button"]')
+const resultDisplay = cart.querySelector('[data-id="total-result"]')
+
+calcButton.addEventListener('click', () => {
+  const priceNumber = Number(price.replace(',', '')) // 문자열을 숫자로 변환, (,)는 빈 분자열로 변환(변환안하면 , 앞 문자만 숫자로 변환되고 ,뒤에 남은 숫자는 문자열로 남음)
+  const quantityNumber = Number(quantity) // 문자열을 숫자로 변환
+  const total = priceNumber * quantityNumber
+  resultDisplay.textContent = total.toLocaleString() //toLocaleString()를 추가해서 숫자 단위 마다 콤마 작성
+})
 
 
 // --------------------------------------------------------------------------
@@ -46,21 +103,29 @@
 
 // [시나리오 01] 존재하지 않는 변수 사용 (ReferenceError 예방)
 // 아래 코드에서 'userName'에 빨간 줄이 뜬다면, 린터가 "선언되지 않았어요!"라고 외치는 중입니다.
+const userName = '야무'
+
 function greetUser() {
   // ⚠️ 린터가 'no-undef' 오류를 표시합니다.
-  // console.log('안녕하세요, ' + userName + '님!') 
+  console.log('안녕하세요, ' + userName + '님!') 
 }
+greetUser()
 
 // [시나리오 02] 선언만 하고 사용하지 않는 변수 (리소스 정리)
 // 'isLoggedIn' 변수 밑에 노란색 또는 빨간색 줄이 있나요? 
 // 린터는 "안 쓸 거면 지워서 코드를 가볍게 만드세요"라고 조언합니다.
 const isLoggedIn = true 
 
+if (isLoggedIn) {
+  console.log('로그인 되었어요')
+}
+
 // [시나리오 03] 전역 변수(Global) 처리법
 // 브라우저 환경이 아닌 곳에서 'window'나 'document'를 쓰면 린터가 당황할 수 있습니다.
 // 그럴 때 상단에 주석을 달아 안심시켜주세요. (/* global document */)
-const title = document.querySelector('h1')
 
+const title = document.querySelector('h1')
+title.textContent = '린터는 좋은 도구!'
 
 // --------------------------------------------------------------------------
 // 린터 지능 향상 실습 (직접 고쳐보기)
