@@ -1,5 +1,8 @@
 {
   "window.zoomLevel": 0.2,
   "editor.glyphMargin": true,
-  "editor.suggest.showStatusBar": true
+  "editor.suggest.showStatusBar": true,
+  "cSpell.words": [
+    "ture"
+  ]
 }
