@@ -8,7 +8,36 @@
 // 3. 리스너 내부에서 e.preventDefault()를 호출했을 때 발생하는 경고를 콘솔에서 확인하세요.
 console.groupCollapsed('passive 옵션 및 스크롤 최적화')
 
-// 이곳에 코드를 작성하세요.
+// 신호를 제공해 이벤트 리스너를 더 이상 작동하지 않도록 중단하는 객체를 생성
+const abortController = new AbortController()
+
+// 전역에 공개
+globalThis.controller = abortController
+
+// 생성된 AbortController 객체의 signal 속성 (중단 신호)
+console.log(abortController.signal)
+
+globalThis.addEventListener(
+  'scroll',
+  (e) => {
+    const globalObject = e.currentTarget
+    const scrollY = globalObject.scrollY
+    // console.log({ y: scrollY })
+
+    if (scrollY > 500) {
+      // 리스너 함수 내부에서 참조 가능한 리스너 이름을 토대로 이벤트 리스너 제거
+      // globalThis.removeEventListener('scroll', listener)
+
+      // abortController의 .abort() 메서드 사용 (중단 신호!) -> 이벤트 리스너 중단
+      // abortController.abort()
+    }
+  },
+  {
+    signal: abortController.signal,
+  }
+)
+
+
 
 console.groupEnd()
 
@@ -64,37 +93,67 @@ console.groupEnd()
   const checkPassive = document.getElementById('check-passive')
   const log = document.getElementById('log')
 
+  // 현재 어볼트 컨트롤러 = 비어있음
   let currentController = null
 
-  // 초기 실행
+  // 초기 실행 (처음 로드될 때 attachListener 함수 실행)
   attachListener()
   // 체크박스 변경 시, 리스너 재등록
   checkPassive.addEventListener('change', attachListener)
 
   function attachListener() {
     // 기존 리스너 제거 (AbortController 활용)
-    if (currentController) {
+    if (currentController !== null) {
+      // 기존에 추가된 이벤트 리스너 작업 중단
       currentController.abort()
     }
 
-    // 컨트롤러 생성
-    currentController = new AbortController()
+    // 생성된 어볼트 컨트롤러를 currentController 변수에 할당
+    currentController = new AbortController() // AbortController {}
+    
     // 체크 상태 확인 (패시브 설정)
     const isPassive = checkPassive.checked
 
-    log.textContent = '현재 옵션: { passive: ' + isPassive + '}'
+    log.textContent = '현재 옵션: { passive: ' + isPassive + ' }'
+    
+    // 조건 식
+    // 삼항 연산자 식
     log.style.color = isPassive ? '#00f' : '#f00'
+    // if (isPassive) {
+    //   log.style.setProperty('color', '#00f')
+    // } else {
+    //   log.style.setProperty('color', '#f00')
+    // }
 
+
+    // 아래 구문은 허용되지 않습니다. 이유는.. 문 (값이 없어서)
+    // log.style.color = if (isPassive) {'#00f'} else {'#f00'}
+
+
+    // 조건 문
+    if (isPassive) {
+      log.style.color = '#00f'
+    } else {
+      log.style.color = '#f00'
+    }
+
+    // 타겟 박스에 이벤트 리스너 추가
+    // abortController에 의해 추가된 리스너 작동 중단될 수 있음
+    // currentController.abort() (removeEventListener 대체)
     targetBox.addEventListener(
       'wheel',
-      (e) => {
+      (eventObject) => {
+        // 비동기 프로그래밍
+        // try...catch 문
         try {
-          // 스크롤을 막으려는 시도
-          e.preventDefault()
+          // 브라우저에게 기본 작동 방지 명령
+          // 브라우저는 스크롤을 막으려는 시도 (일시적 대기 상태 => 모바일 환경 성능 저하)
+          eventObject.preventDefault()
+
           log.textContent = '스크롤 차단 성공! (preventDefault 작동)'
-        } catch (err) {
+        } catch (errorObject) {
           // passive: true일 때 오류 발생 (콘솔 패널 확인)
-          console.error(err)
+          console.error(errorObject)
         }
 
         if (isPassive) {
@@ -104,10 +163,14 @@ console.groupEnd()
       // [TODO] 여기에 옵션 객체를 작성하세요.
       // 1. passive 값을 isPassive 변수로 설정
       // 2. signal 값을 currentController.signal로 설정
-      /* 여기에 코드 작성 */
+      {
+        passive: isPassive, /* checked */
+        signal: currentController.signal, /* AbortSignal */
+      }
     )
   }
 }
+
 
 
 
@@ -128,7 +191,7 @@ console.groupEnd()
   // 추적 시작
   buttonStart.addEventListener('click', () => {
     // [TODO] 1. 새로운 AbortController를 생성하여 controller 변수에 할당하세요.
-    /* 여기에 코드 작성 */
+    controller = new AbortController()
 
     // UI 업데이트
     buttonStart.disabled = true
@@ -144,6 +207,9 @@ console.groupEnd()
       },
       // [TODO] 2. signal 옵션을 설정하세요.
       /* 여기에 코드 작성 */
+      {
+        signal: controller.signal, // AbortSignal: mousemove 이벤트 리스너의 signal 옵션 설정
+      }
     )
 
     // 클릭 이벤트
@@ -156,6 +222,9 @@ console.groupEnd()
       },
       // [TODO] 3. signal 옵션을 설정하세요.
       /* 여기에 코드 작성 */
+      {
+        signal: controller.signal, // AbortSignal: click 이벤트 리스너의 signal 옵션 설정
+      }
     )
   })
 
@@ -165,6 +234,7 @@ console.groupEnd()
     if (controller) {
       // [TODO] 4. 추가된 모든 이벤트를 한 번에 제거하세요.
       /* 여기에 코드 작성 */
+      controller.abort()
 
       // UI 초기화
       buttonStart.disabled = false
