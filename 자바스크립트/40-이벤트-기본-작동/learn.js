@@ -8,7 +8,69 @@
 // 3. 콘솔에 "링크 이동이 방지되었습니다."라고 출력하세요.
 console.groupCollapsed('링크 기본 동작 방지 실습')
 
-// 이곳에 코드를 작성하세요.
+const googleLink = document.querySelector('[href*="google"]')
+
+googleLink.addEventListener('click', (e) => {
+  // 브라우저의 기본 작동(default) 방지(prevent, 중단) 명령
+  // '브라우저. 너 원래 하던 거 하지마!' (preventDefault)
+  e.preventDefault()
+})
+
+googleLink.addEventListener('click', (e) => {
+  if (e.defaultPrevented) {
+    console.log('브라우저 기본 작동 방지됨')
+  } else {
+    console.log('브라우저 기본 작동 실행')
+  }
+})
+
+// 리디렉션 시뮬레이션 (서버 측 애플리케이션 처리)
+// 현재 사용자가 로그인되었나요? (상태)
+let isLogin = false
+
+// 로그인 상태가 아니라면
+// 로그인 페이지로 리디렉션하세요.
+if (!isLogin) {
+  // window.location.href = 'https://nid.naver.com/nidlogin.login'
+}
+
+const checkbox = document.querySelector('.prevent-default-demo-checkbox [type="checkbox"]')
+
+checkbox.addEventListener('click', (e) => {
+  // 사용자가 행한 이벤트 타입은?
+  console.log(e.type) // 'click'
+  // 브라우저 기본 작동 방지한다면?
+  // e.preventDefault()
+
+  // 브라우저 기본 작동 방지 여부 (불리언 값)
+  console.log('브라우저 기본 작동 방지 상태:', e.defaultPrevented)
+})
+
+checkbox.addEventListener('input', (e) => {
+  console.log(e.type)
+})
+
+checkbox.addEventListener('change', (e) => {
+  // 사용자가 행한 이벤트 타입은?
+  console.log(e.type) // 'change'
+
+  const checkboxInput = e.currentTarget
+  // 사용자가 체크박스의 체크 상태를 변경(change)한 후 값 읽기
+  if(checkboxInput.checked) {
+    // 사용자가 체크 상태를 기대하고 뭔가를 행할 때 여기에 코드 작성
+    console.log('영화 뭐 볼래요? 🎥')
+  } else {
+    // 사용자가 체크 해제 상태를 기대하고 뭔가를 행할 때 여기에 코드 작성
+    console.log('영화 보러 갈까요? 🎦')
+  }
+})
+
+const registerForm = document.querySelector('.js-register-form')
+
+registerForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+  console.log('폼 전송 하지마! (브라우저 기본 작동 방지)')
+})
 
 console.groupEnd()
 
