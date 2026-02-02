@@ -19,7 +19,7 @@ const myNotebook = {
 // console.log(myNotebook)
 
 // 객체의 속성(property 또는 key) 이름을
-// 범위(scope) 내 변수로 선언하고 변수로
+// 범위(scope) 내 변수로 선언하고 변수에
 // 각 속성에 매칭되는 값을 할당한다면?
 
 {
@@ -36,23 +36,19 @@ const myNotebook = {
 // 구조 분해 할당(Destructuring Assignment) 구문
 {
   // myNotebook 객체의 구조: { brand, processor, ram, ssd, maker }
-  const { 
+  const {
     brand: name, // myNotebook 객체의 brand 속성 값을 지역 변수 name 할당
-    processor: cpu, 
+    processor: cpu,
     memory, // myNotebook 객체에 없는 속성 이름 (값: undefined)
-    ssd, 
-    maker } = myNotebook
+    ssd,
+    maker,
+  } = myNotebook
 
-
-    console.log(name, cpu, memory, ssd, maker)
-  // console.log(brand)
-  // console.log(processor)
-  // console.log(ram)
-  // console.log(ssd)
-  // console.log(maker)
+  // console.log(brand, processor, ram, ssd, maker)
+  console.log(name, cpu, memory, ssd, maker)
 }
-console.groupEnd()
 
+console.groupEnd()
 
 // --------------------------------------------------------------------------
 // 실습: 배열 구조 분해 할당 (Array Destructuring)
@@ -75,13 +71,12 @@ const points = [92, -24, 0] // [x, y, z]
 }
 
 {
-  const [ x, y, z ] = points // [숫자값, 숫자값, 숫자값]
+  const [x, y, z] = points // [숫자값, 숫자값, 숫자값]
 
   console.log(x, y, z)
 }
 
 console.groupEnd()
-
 
 // --------------------------------------------------------------------------
 // 실습: 함수 매개변수 구조 분해 (Function Parameter Destructuring)
@@ -91,16 +86,16 @@ console.groupEnd()
 // 1. 상품명(title)과 가격(price)을 속성으로 가진 객체를 인자로 받는 printProduct 함수를 만드세요.
 // 2. 함수의 매개변수 자리에서 즉시 구조 분해를 수행하세요.
 // 3. 템플릿 리터럴을 사용하여 상품 정보를 출력해 보세요.
-console.groupCollapsed('함수 매개변수 구조 분해 실습')
+console.group('함수 매개변수 구조 분해 실습')
 
 // 객체 타입을 매개변수로 받는 경우
-function printProduct(product) {
+function printProductStep1(product) {
   // 전통적인 객체.속성 방식으로 값에 접근
   return `"${product.title}" 제품의 가격은 ${product.price.toLocaleString()}원입니다.`
 }
 
 // 객체 타입을 매개변수로 받은 경우
-function printProductDA(product) {
+function printProductStep2(product) {
   // 객체 타입 매개변수의 구조를 분해해 지역내 변수로 할당
   const { title, price } = product // { title, price }
   return `"${title}" 제품의 가격은 ${price.toLocaleString()}원입니다.`
@@ -108,23 +103,15 @@ function printProductDA(product) {
 
 // 객체 타입을 매개변수로 받은 경우
 // 매개변수를 바로(즉시) 구조 분해 할당하여 지역내 변수로 선언
-function printProductDAinParams({ title, price }) {
+function printProductStep3({ title, price }) {
   return `"${title}" 제품의 가격은 ${price.toLocaleString()}원입니다.`
 }
 
-console.log(printProduct({ title: '샘표 진간장', price: 10500 }))
-console.log(printProductDA({ title: '샘표 진간장', price: 10500 }))
-console.log(printProductDAinParams({ title: '샘표 진간장', price: 10500 }))
-
+console.log(printProductStep1({ title: '샘표 진간장', price: 10500 }))
+console.log(printProductStep2({ title: '샘표 진간장', price: 10500 }))
+console.log(printProductStep3({ title: '샘표 진간장', price: 10500 }))
 
 // 함수가 배열 타입을 매개변수로 전달받는다면?
-
-function printFriends(friends) {
-  friends.forEach((friend) => console.log(friend))
-}
-
-console.log(printFriends(['박한영', '김준수', '장하준', '이현종']))
-
 
 function printFriendsStep1(friends) {
   const friend1 = friends.at(0)
@@ -147,7 +134,6 @@ function printFriendsStep2(friends) {
 }
 
 function printFriendsStep3([friend1, friend2, friend3, friend4]) {
-
   console.log(friend1)
   console.log(friend2)
   console.log(friend3)
@@ -158,10 +144,7 @@ console.log(printFriendsStep1(['박한영', '김준수', '장하준', '이현종
 console.log(printFriendsStep2(['박한영', '김준수', '장하준', '이현종']))
 console.log(printFriendsStep3(['박한영', '김준수', '장하준', '이현종']))
 
-
-
 console.groupEnd()
-
 
 // --------------------------------------------------------------------------
 // 구조 분해 할당 + 기본 값 설정
@@ -180,57 +163,56 @@ console.groupEnd()
 
   // 만약 myCup 객체에 isPresent 속성이 없다면?
   // isPresent 속성의 기본 값을 할당하자.
-  const { 
-    name = 'Mug Cup', 
-    color = '민트색', 
-    material = '플라스틱', 
-    price = 3000, 
-    isPresent = true 
+  const {
+    name = 'Mug Cup',
+    color = '민트색',
+    material = '플라스틱',
+    price = 3000,
+    isPresent = true,
   } = yourCup // myCup
 
   console.log(name, color, material, price)
   console.log(isPresent)
 
-
   // 함수의 매개변수를 구조분해할당하는 단계별 이해
-  
-    // 단계 1.
-    function printInfoStep1(product) {
-      // 논리 연산자(논리합, ||, 첫 번째 Truthy를 찾음)
-      const name = product.name || 'Mug Cup'
-      const color = product.color || '민트색'
-      const material = product.material || '플라스틱'
-      const price = product.price || 3000
-      const isPresent = product.isPresent || true
-  
-      console.log('name =', name)
-      console.log('color =', color)
-      console.log('material =', material)
-      console.log('price =', price)
-      console.log('isPresent =', isPresent)
-  
-      // 암묵적으로 undefined 반환
-      // return undefined
-    }
-  
-    console.log(printInfoStep1(myCup))
-    console.log(printInfoStep1({
+
+  // 단계 1.
+  function printInfoStep1(product) {
+    // 논리 연산자 (논리합, ||, 첫 번째 Truthy를 찾음)
+    const name = product.name || 'Mug Cup'
+    const color = product.color || '민트색'
+    const material = product.material || '플라스틱'
+    const price = product.price || 3000
+    const isPresent = product.isPresent || true
+
+    console.log('name =', name)
+    console.log('color =', color)
+    console.log('material =', material)
+    console.log('price =', price)
+    console.log('isPresent =', isPresent)
+
+    // 암묵적으로 undefined 반환
+    // return undefined
+  }
+
+  console.log(printInfoStep1(myCup))
+  console.log(
+    printInfoStep1({
       color: '골드색',
       price: 27000,
-    }))
-
-
+    }),
+  )
 
   // 단계 2.
   function printInfoStep2(product) {
     // 객체 구조 분해 할당 활용
-    // product // {name, color, material, price, inPresent}
+    // product // { name, color, material, price, isPresent }
     const {
-      name = 'Mug Cup', 
-      color = '민트색', 
-      material = '플라스틱', 
-      price = 3000, 
-      isPresent = true 
+      name = 'Mug Cup',
+      color = '민트색',
+      material = '플라스틱',
+      price = 3000,
+      isPresent = true,
     } = product
 
     console.log('name =', name)
@@ -244,19 +226,21 @@ console.groupEnd()
   }
 
   console.log(printInfoStep2(myCup))
-  console.log(printInfoStep2({
-    color: '골드색',
-    price: 27000,
-  }))
+  console.log(
+    printInfoStep2({
+      color: '골드색',
+      price: 27000,
+    }),
+  )
 
   // 단계 3.
   // 매개변수 영역에서 객체 구조 분해 할당 활용
   function printInfoStep3({
-    name = 'Mug Cup', 
-    color = '민트색', 
-    material = '플라스틱', 
-    price = 3000, 
-    isPresent = true 
+    name = 'Mug Cup',
+    color = '민트색',
+    material = '플라스틱',
+    price = 3000,
+    isPresent = true,
   }) {
     console.log('name =', name)
     console.log('color =', color)
@@ -266,21 +250,41 @@ console.groupEnd()
   }
 
   console.log(printInfoStep3(myCup))
-  console.log(printInfoStep3({
-    color: '골드색',
-    price: 27000,
-  }))
-
+  console.log(
+    printInfoStep3({
+      color: '골드색',
+      price: 27000,
+    }),
+  )
 
   // 단계 4.
-  // 함수의 기본 매개변수 배우고 나서 진행
+  // 함수의 기본 매개변수 배우고 나서 진행!
+  {
+    function printInfoStep4({
+      name = '홍길동',
+      color = '하얀색',
+      material = '다이어몬드',
+      isPresent = false,
+      price = 1000,
+    } = {}) {
+      // const { name, color, material, isPresent, price } = objectInfo
 
+      console.log('name =', name)
+      console.log('color =', color)
+      console.log('material =', material)
+      console.log('price =', price)
+      console.log('isPresent =', isPresent)
+    }
+
+    console.log(printInfoStep4(myCup))
+    console.log(
+      printInfoStep4({
+        color: '골드색',
+        price: 27000,
+      }),
+    )
+  }
 }
-
-
-
-
-
 
 // --------------------------------------------------------------------------
 // 핵심 요약!
