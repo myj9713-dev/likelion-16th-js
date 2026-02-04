@@ -2,12 +2,116 @@
 // 실습: 요소 제거 및 이동 (remove, removeChild, insertBefore)
 // --------------------------------------------------------------------------
 
+{
+  // 요소 제거
+  ;(() => {
+   const members = document.querySelector('.members')
+   const removeButton = document.querySelector('.remove-button') 
+   
+  //  removeChild()
+   removeButton.addEventListener('click', () => {
+    const removeChild = members.removeChild(members.children[2]) // 부모로부터 몇번째 자식을 지울지
+    console.log(removeChild) // 제거(remove) (되돌릴 가능성), 삭제된 값이 반환됨
+    })
+    
+    // remove()
+    const willRemoveElement = document.querySelector('.members li:nth-child(3)') 
+    removeButton.addEventListener('click', () => {
+      willRemoveElement.remove() // 스스로 지우기, 반환값 없음(undefined)
+     })
+
+
+  }) //()
+
+  // 요소 이동
+  ;(() => {
+
+    // 제거한 '최상준'을 박현일 앞, 이지아 뒤 위치로 이동
+    const members = document.querySelector('.members')
+    const [lee, park, choi, ha] = members.children // HTMLCollection [0, 1, 2, 3]
+    // console.log({ lee, park, choi})
+
+    const moveButton = document.querySelector('.move-button')
+
+    moveButton.addEventListener('click', () => {
+      // 최상준 제거 (최상준 반환됨)
+      const removedChoi = members.removeChild(choi)
+      console.log(removedChoi)
+      
+      // <박현일 앞>에 제거한 최상준 삽입
+      // members.insertBefore(removedChoi, park)
+      
+      // 이지아 뒤 (❌부모요소.insertAfter(위치요소, 삽입요소))
+
+      // 2005년 DOM 스크립트 도서를 통해 소개된 방법
+      // insertAfter(lee, removedChoi)
+
+      // 2026년 오늘날 사용 가능한 방법
+      lee.after(removedChoi)
+      
+      // lee.before(removedChoi)
+    })
+
+    // 사용자 정의 함수(기능)
+    // insertAfter(위치요소, 삽입요소)
+    function insertAfter(targetElement, insertElement) {
+      // insertBefore() + appendChild() = insertAfter()
+      // 위치요소의 부모 찾기
+      const parentElement = targetElement.parentElement
+      if (!parentElement) return
+      // 부모의 자식: targetElement
+      // targetElement의 다음 요소 찾자.
+      const nextElement = targetElement.nextElementSibling
+      if (nextElement) {
+        // 있을 경우: 그 뒤 요소의 앞에 삽입 요소를 추가 (insertBefore)
+        parentElement.insertBefore(insertElement, nextElement)
+      } else {
+        // 없을 경우: 부모의 마지막 자식 요소로 삽입 요소 추가 (appendChild)
+        parentElement.appendChild(insertElement)
+      }
+    }
+
+
+    // 부모요소 중심 메서드
+    // 부모요소.appendChild()
+    // 부모요소.insertBefore()
+    // 부모요소.removeChild()
+    
+    // 요소 중심 메서드
+    // 요소.prepend()
+    // 요소.append()
+    // 요소.before()
+    // 요소.after()
+    // 요소.remove()
+
+
+  })()
+}
+
+
+
+
 // [실습 1] 멤버 제거
 // 1. 모든 제거 버튼에 클릭 이벤트를 연결하세요.
 // 2. 클릭된 버튼의 부모 요소인 <li>를 찾아 remove()를 사용해 제거하세요.
 console.groupCollapsed('1. 요소 스스로 삭제하기 (remove)')
 
-// 이곳에 코드를 작성하세요
+{
+  const practice = document.getElementById('practice1')
+  practice.addEventListener('click', (e) => {
+    const removeButton = e.target.closest('.btn-remove')
+    if (!removeButton) return
+    // if (removeButton) {
+    //   console.log('리무브 버튼 클릭했어요!')
+    // } else {
+    //   console.log('다른 데 클릭했어요..')
+    // }
+
+    // const willRemoveItem = removeButton.parentElement
+    // willRemoveItem.remove() // 변수로 정해줘서 되돌릴수있음
+    removeButton.parentElement.remove() // 참조하지 않고 지우면 메모리에 저장이 안되서 복구 안됨
+  })
+}
 
 console.groupEnd()
 

@@ -2,6 +2,48 @@
 // 실습: textContent & innerHTML
 // --------------------------------------------------------------------------
 
+const main = document.getElementById('main-content')
+const heading = main.querySelector('h1')
+
+// TextContent 속성
+{
+// 읽기
+console.log(heading.textContent)
+
+// 쓰기
+heading.textContent = '<em>글자가 기울어질까요?</em> 그대로 HTML이 출력이될걸요?'
+}
+
+
+// innerHTML 속성
+{
+  // 읽기
+  console.log(heading.innerHTML)
+
+  // 쓰기
+  setTimeout(() => {
+    heading.innerHTML = `
+    <em>글자가 기울어질까요?</em>
+    HTML 태그로 해석되므로 반영될걸요?
+    `
+
+    console.log('내부 HTML',heading.innerHTML)
+
+    // outerHTML 속성 읽기
+    console.log('외부 HTML', heading.outerHTML)
+  }, 2000)
+
+  // outerHTML 속성 쓰기
+  setTimeout(() => {
+    heading.outerHTML = `
+    <strong role="heading" area-level="1">
+    ${heading.innerHTML}
+    </strong>
+    `
+  }, 4000)  
+}
+
+
 // [실습 1] 오늘의 생활 수칙 (textContent)
 // 1. 아래 headlines 배열에서 무작위로 하나를 추출하세요.
 // 2. 버튼을 클릭하면 <h2>(또는 출력용 요소)의 텍스트가 변경되도록 작성하세요.
@@ -30,7 +72,26 @@ const headlines = [
   '공공장소에서는 이어폰 사용하기', '비상연락망은 가족끼리 공유'
 ]
 
-// 이곳에 코드를 작성하세요
+{
+  const practice1 = document.getElementById('practice1')
+  const display = practice1.querySelector('.headline-display')
+  
+  // 이벤트 위임(Event Delegation)
+  practice1.addEventListener(('click'), (e) => {
+  // 실제 이벤트가 발생한 대상을 포함해 가장 가까운 부모까지
+  // 거슬러 올라가 요소를 찾고, 요소가 없을 경우 null 반환
+  const button = e.target.closest('.btn-change')
+  // 빠른 반환(조기 리턴: Early Return)
+  if (!button) return
+
+  // 랜덤 '오늘의 생활 수칙' 꺼내기
+  const randomIndex = Math.floor(Math.random() * headlines.length)
+  const randomContent = headlines.at(randomIndex)
+
+  // DOM 요소의 텍스트 콘텐츠 조작(update)
+  display.textContent = randomContent
+  })
+}
 
 console.groupEnd()
 
@@ -41,7 +102,50 @@ console.groupEnd()
 // 2. 템플릿 리터럴을 활용하여 <h2>박상현</h2><p>프론트엔드 개발자</p> 구조를 만드세요.
 console.groupCollapsed('2. innerHTML 실습')
 
-// 이곳에 코드를 작성하세요
+// { //내가 작성한거 
+//   const practice2 = document.getElementById('practice2')
+//   const button = practice2.querySelector('.btn-add')
+
+//   button.addEventListener(('click'), () => {
+//   const cardContainer = practice2.querySelector('.card-container')
+//   cardContainer.innerHTML = `
+//   <h2>박상현</h2>
+//   <p>프론트엔드 개발자</p>
+//   `
+// })
+// }
+
+{ // 강사님 코드
+  const practice2 = document.getElementById('practice2')
+  const container = practice2.querySelector('.card-container')
+  
+  practice2.addEventListener('click', (e) => {
+    const button = e.target.closest('.btn-add')
+    if (!button) return
+    if (container.innerHTML.trim() !== '') return
+    alert('카드 렌더링')
+    renderCard()
+    // disable(button)
+  })
+
+  function enable(element) {
+    element.disabled = false
+    element.style.setProperty('cursor', 'pointer')
+  }
+  
+  function disable(element) {
+    element.disabled = true
+    element.style.setProperty('cursor', 'not-allowed')
+  }
+
+  function renderCard() {
+    container.innerHTML = /* html */`
+      <h2>박상현</h2>
+      <p>프론트엔드 개발자</p>
+    `
+  }
+}
+
 
 console.groupEnd()
 
